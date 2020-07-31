@@ -1,0 +1,47 @@
+{
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "Backend",
+  "productName": "backend",
+  "author": "Suman Iwaram",
+  "private": true,
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.16.1",
+    "bcryptjs": "^2.4.3",
+    "class-validator": "^0.12.2",
+    "date-fns": "^2.15.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.19",
+    "mikro-orm": "^3.6.15",
+    "nodemailer": "^6.4.11",
+    "pg": "^8.3.0",
+    "type-graphql": "^1.0.0-rc.3",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.158",
+    "@types/node": "^14.0.27",
+    "@types/nodemailer": "^6.4.0",
+    "@types/uuid": "^8.0.0",
+    "ts-node": "8.10.2",
+    "ts-node-dev": "1.0.0-pre.56",
+    "typescript": "3.9.7"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
+  }
+}
