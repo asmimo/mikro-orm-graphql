@@ -1,13 +1,12 @@
-import { Options } from "mikro-orm";
+import { Options } from "@mikro-orm/core";
 import { BaseEntity } from "./globals/entity";
-import { User } from "./modules/user/user.entity";
 
 const config: Options = {
   type: "postgresql",
   clientUrl: "postgres://postgres:test@localhost:5432/mikro",
-  entities: [BaseEntity, User],
+  entities: [BaseEntity, "src/modules/**/*.entity.{ts,js}", "dist/modules/**/*.entity.{ts,js}"],
   migrations: {
-    path: "./src/migrations",
+    path: "src/migrations",
   },
 };
 
