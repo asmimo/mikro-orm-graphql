@@ -1,4 +1,4 @@
-import { PrimaryKey, Property } from "mikro-orm";
+import { PrimaryKey, Property } from "@mikro-orm/core";
 import { ObjectType, Field, ID } from "type-graphql";
 import { v4 } from "uuid";
 
