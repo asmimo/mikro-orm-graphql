@@ -1,10 +1,11 @@
-import { Entity, Property } from "mikro-orm";
+import { Entity, Property } from "@mikro-orm/core";
 import { BaseEntity } from "../../globals/entity";
 import { ObjectType, Field, Int } from "type-graphql";
 import bcrypt from "bcryptjs";
+import { CustomUserRepository } from "./user.repository";
 
 @ObjectType()
-@Entity()
+@Entity({ customRepository: () => CustomUserRepository })
 export class User extends BaseEntity {
   @Field()
   @Property({ unique: true })

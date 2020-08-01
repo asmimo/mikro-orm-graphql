@@ -1,6 +1,5 @@
-import { Resolver, Mutation, Query, Args, Arg } from "type-graphql";
+import { Resolver, Mutation, Query, Args, Ctx, Arg } from "type-graphql";
 import { User } from "./user.entity";
-import UserService from "./user.service";
 import {
   CreateUserDTO,
   UserFilterDTO,
@@ -9,41 +8,51 @@ import {
   UpdateUserDTO,
   UpdateUserPasswordDTO,
 } from "./user.dto";
+import { BaseContext } from "../../types/context";
 
 @Resolver(User)
 export class UserResolver {
-  public readonly userService = new UserService();
-
   @Mutation(() => User)
-  async createUser(@Args() dto: CreateUserDTO): Promise<User> {
-    return this.userService.createUser(dto);
+  async createUser(@Ctx() { em }: BaseContext, @Args() dto: CreateUserDTO): Promise<User> {
+    // @ts-ignore
+    return em.getRepository(User).createUser(dto);
   }
 
   @Query(() => [User])
   async getUsers(
+    @Ctx() { em }: BaseContext,
     @Arg("filter", { nullable: true }) filter: UserFilterDTO,
     @Args() pagination: UserPaginationDTO,
   ): Promise<User[]> {
-    return this.userService.getUsers(filter, pagination);
+    // @ts-ignore
+    return em.getRepository(User).getUsers(filter, pagination);
   }
 
   @Query(() => User)
-  async getUser(@Args() { id }: IdDTO): Promise<User> {
-    return this.userService.getUser(id);
+  async getUser(@Ctx() { em }: BaseContext, @Args() { id }: IdDTO): Promise<User> {
+    // @ts-ignore
+    return em.getRepository(User).getUser(id);
   }
 
   @Mutation(() => User)
-  async updateUser(@Args() { id }: IdDTO, @Args() dto: UpdateUserDTO): Promise<User> {
-    return this.userService.updateUser(id, dto);
+  async updateUser(@Ctx() { em }: BaseContext, @Args() { id }: IdDTO, @Args() dto: UpdateUserDTO): Promise<User> {
+    // @ts-ignore
+    return em.getRepository(User).updateUser(id, dto);
   }
 
   @Mutation(() => User)
-  async updateUserPassword(@Args() { id }: IdDTO, @Args() dto: UpdateUserPasswordDTO): Promise<User> {
-    return this.userService.updateUserPassword(id, dto);
+  async updateUserPassword(
+    @Ctx() { em }: BaseContext,
+    @Args() { id }: IdDTO,
+    @Args() dto: UpdateUserPasswordDTO,
+  ): Promise<User> {
+    // @ts-ignore
+    return em.getRepository(User).updateUserPassword(id, dto);
   }
 
   @Mutation(() => Boolean)
-  async deleteUser(@Args() { id }: IdDTO): Promise<boolean> {
-    return this.userService.deleteUser(id);
+  async deleteUser(@Ctx() { em }: BaseContext, @Args() { id }: IdDTO): Promise<boolean> {
+    // @ts-ignore
+    return em.getRepository(User).deleteUser(id);
   }
 }
