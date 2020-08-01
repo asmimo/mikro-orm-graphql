@@ -1,10 +1,8 @@
-import { DI } from "../../server";
+import { EntityRepository } from "@mikro-orm/postgresql";
 import { User } from "./user.entity";
 import { CreateUserDTO, UserFilterDTO, UserPaginationDTO, UpdateUserDTO, UpdateUserPasswordDTO } from "./user.dto";
 
-export default class UserService {
-  protected readonly userRepo = DI.orm.em.getRepository(User);
-
+export class CustomUserRepository extends EntityRepository<User> {
   async createUser(dto: CreateUserDTO): Promise<User> {
     const { username, email, password, confirm, age, sex } = dto;
 
@@ -12,7 +10,7 @@ export default class UserService {
       throw new Error("match fail");
     }
 
-    const user = this.userRepo.create({
+    const user = this.create({
       username,
       email,
       password,
@@ -21,7 +19,7 @@ export default class UserService {
     });
     try {
       await user.hashPassword();
-      await this.userRepo.persist(user, true);
+      await this.persist(user).flush();
     } catch (error) {
       if (error.code === "23505") {
         const rxp = /\(([^)]+)\)/;
@@ -29,40 +27,47 @@ export default class UserService {
         if (key) {
           throw new Error(`${key[1]} already exists`);
         }
-      } else {
-        throw new Error(error);
       }
+      throw new Error(error);
     }
 
     return user;
   }
 
   async getUsers(filter: UserFilterDTO, pagination: UserPaginationDTO): Promise<User[]> {
-    const query = this.userRepo.createQueryBuilder("user");
+    const qb = this.createQueryBuilder("user");
 
     if (filter) {
-      const { username, email } = filter;
+      const { deepFilter, username, email, sex, from, to } = filter;
+      const operator = deepFilter ? "$and" : "$or";
       if (username != null) {
-        query.where({ username: { $like: username } });
+        qb.where({ username: { $ilike: `%${username}%` } }, operator);
       }
       if (email != null) {
-        query.andWhere("user.email like :email", [email]);
+        qb.where({ email: { $ilike: `%${email}%` } }, operator);
+      }
+      if (sex != null) {
+        qb.where({ sex }, operator);
+      }
+      if (from || to) {
+        if (from && to) {
+          qb.where(`created_at between ? and ?`, [from, to], operator);
+        } else {
+          throw new Error("provide both dates");
+        }
       }
     }
 
     const { limit, offset, sort, by } = pagination;
-    query
-      .limit(limit)
+    qb.limit(limit)
       .offset(offset)
       .orderBy({ [by]: sort });
 
-    console.log(query.getQuery(), query.getParams());
-
-    return query.getResult();
+    return qb.getResult();
   }
 
   async getUser(id: string): Promise<User> {
-    const user = await this.userRepo.findOne({ id });
+    const user = await this.findOne({ id });
 
     if (!user) {
       throw new Error("not found");
@@ -83,7 +88,7 @@ export default class UserService {
     user.age = age;
     user.sex = sex;
     try {
-      await this.userRepo.persist(user, true);
+      await this.persist(user).flush();
     } catch (error) {
       if (error.code === "23505") {
         const rxp = /\(([^)]+)\)/;
@@ -91,9 +96,8 @@ export default class UserService {
         if (key) {
           throw new Error(`${key[1]} already exists`);
         }
-      } else {
-        throw new Error(error);
       }
+      throw new Error(error);
     }
 
     return user;
@@ -116,7 +120,7 @@ export default class UserService {
     user.password = password;
     try {
       await user.hashPassword();
-      await this.userRepo.persist(user, true);
+      await this.persist(user).flush();
     } catch (error) {
       throw new Error(error);
     }
@@ -126,7 +130,7 @@ export default class UserService {
 
   async deleteUser(id: string): Promise<boolean> {
     try {
-      const result = await this.userRepo.remove({ id }, true);
+      const result = await this.nativeDelete({ id });
 
       return result ? true : false;
     } catch (error) {
