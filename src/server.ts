@@ -1,6 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { MikroORM, RequestContext } from "mikro-orm";
+import { MikroORM } from "@mikro-orm/core";
 import config from "./mikro-orm.config";
 import { buildSchema } from "type-graphql";
 
@@ -20,11 +20,10 @@ export const DI = {} as {
         resolvers: [__dirname + "/modules/**/*.resolver.{ts,js}"],
         emitSchemaFile: false,
       }),
-      context: ({ req, res }) => ({ req, res }),
-    });
-
-    app.use((_req, _res, next) => {
-      RequestContext.create(DI.orm.em, next);
+      context: ({ req, res }) => {
+        const em = DI.orm.em.fork();
+        return { req, res, em };
+      },
     });
 
     apolloServer.applyMiddleware({ app });
