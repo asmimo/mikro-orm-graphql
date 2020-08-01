@@ -46,14 +46,23 @@ export class CreateUserDTO extends UserPasswordDTO {
 
 @InputType()
 export class UserFilterDTO extends DateFilterDTO {
+  @Field({ defaultValue: false })
+  deepFilter: boolean;
+
   @Field({ nullable: true })
-  @Length(5, 15)
-  @Matches(/^\S*$/, { message: "Username must not include spaces" })
   username: string;
 
   @Field({ nullable: true })
-  @IsEmail()
   email: string;
+
+  @Field({ nullable: true })
+  ageFrom: Date;
+
+  @Field({ nullable: true })
+  ageTo: Date;
+
+  @Field(() => Sex, { nullable: true })
+  sex: Sex;
 }
 
 @ArgsType()
