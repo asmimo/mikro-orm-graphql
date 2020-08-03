@@ -35,10 +35,10 @@
   dependencies:
     xss "^1.0.6"
 
-"@mikro-orm/core@^4.0.0-alpha.11":
-  version "4.0.0-alpha.11"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.0-alpha.11.tgz#31793e135a5340ccdacfd810dbec9c5034b0944c"
-  integrity sha512-XCxmPg5GPLQ60zb1SNBnT5ca+mbrKKMo/J8mrL8ZrBVAa+8IoIWYiERcdFztOylYgAppmGHWXtk6k1NIrKGTbg==
+"@mikro-orm/core@^4.0.0-alpha.12":
+  version "4.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-4.0.0-alpha.12.tgz#fb34e8340245de81e8b82335422be622435c3a42"
+  integrity sha512-UO0cx1POURmwx7d8GAicsXavQU1448Luayr9a9VZ1VllP6ApclG2bFSZFzjndau39GEZqfRTD0wyMiTev1SuHA==
   dependencies:
     acorn-loose "^7.1.0"
     acorn-walk "^7.2.0"
@@ -51,20 +51,20 @@
     reflect-metadata "^0.1.13"
     uuid "^8.1.0"
 
-"@mikro-orm/knex@^4.0.0-alpha.11":
-  version "4.0.0-alpha.11"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.0.0-alpha.11.tgz#164b25854b8cb2fae666b9525ecba5db96c3c5c6"
-  integrity sha512-zmYfxpdNJwN9Ldei8Wd5+IRrIu/VVaxm6kbNJbnowJfDJDb8DG6Gcba5s+DP2ZgP8kBVLCCRqAf45YgAGJeKmw==
+"@mikro-orm/knex@^4.0.0-alpha.12":
+  version "4.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-4.0.0-alpha.12.tgz#43d26e91079e656b7e9d122f91d7cbeccec9d8e1"
+  integrity sha512-sg9jj62//AEmiyfu3FpeT0ARZjiDGKox7O6W4M7L8MpQV+LrTFaoUmyt3dzXkKdKdeyXTvI2gEb/I0TL4rHviw==
   dependencies:
     fs-extra "^9.0.1"
     knex "^0.21.1"
 
-"@mikro-orm/postgresql@^4.0.0-alpha.11":
-  version "4.0.0-alpha.11"
-  resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-4.0.0-alpha.11.tgz#e17574c1f32afa3b54ae102c3bd13bce5f3ece16"
-  integrity sha512-GHqlfZoe+k9/mBX2Yg5D9TZmseFtchmmKiNZ2c4kktJWTP+jA8XXLM5E8Rih7zayni5563NbbbHGI6/4QKgWrA==
+"@mikro-orm/postgresql@^4.0.0-alpha.12":
+  version "4.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-4.0.0-alpha.12.tgz#6fac33a41ff46ef07e1d5f29fe44eaa43a39725a"
+  integrity sha512-s4RDPEwHpxOm45R18WhpUPkDx1cNAEwriQmp37G+peCM4L5DJ87fnghUU6NPGqXt6BzIa6mngrFLPmyD/aIpVg==
   dependencies:
-    "@mikro-orm/knex" "^4.0.0-alpha.11"
+    "@mikro-orm/knex" "^4.0.0-alpha.12"
     pg "^8.2.1"
 
 "@nodelib/fs.scandir@2.1.3":
