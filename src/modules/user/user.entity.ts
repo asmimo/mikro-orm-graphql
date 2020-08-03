@@ -1,5 +1,5 @@
 import { Entity, Property } from "@mikro-orm/core";
-import { BaseEntity } from "../../globals/entity";
+import { BaseEntity } from "../../shared/entity";
 import { ObjectType, Field, Int } from "type-graphql";
 import bcrypt from "bcryptjs";
 import { CustomUserRepository } from "./user.repository";

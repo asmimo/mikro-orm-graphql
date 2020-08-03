@@ -1,6 +1,6 @@
-import { ArgsType, InputType, Field, registerEnumType, Int } from "type-graphql";
+import { ArgsType, InputType, registerEnumType, Field, Int } from "type-graphql";
 import { Length, Matches, IsEmail, IsIn } from "class-validator";
-import { DateFilterDTO, PaginationDTO, IdDTO } from "../../globals/dto";
+import { DateFilterDTO, PaginationDTO, IdDTO } from "../../shared/dto";
 
 enum Sex {
   MALE = "MALE",

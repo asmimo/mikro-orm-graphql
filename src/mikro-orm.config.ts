@@ -1,5 +1,5 @@
 import { Options } from "@mikro-orm/core";
-import { BaseEntity } from "./globals/entity";
+import { BaseEntity } from "./shared/entity";
 
 const config: Options = {
   type: "postgresql",
