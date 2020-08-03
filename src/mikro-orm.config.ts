@@ -1,4 +1,4 @@
-import { Options } from "@mikro-orm/core";
+import { Options } from "mikro-orm";
 import { BaseEntity } from "./shared/entity";
 
 const config: Options = {

@@ -1,4 +1,4 @@
-import { Entity, EntityRepositoryType, Property } from "@mikro-orm/core";
+import { Entity, EntityRepositoryType, Property } from "mikro-orm";
 import { BaseEntity } from "../../shared/entity";
 import { ObjectType, Field, Int } from "type-graphql";
 import bcrypt from "bcryptjs";

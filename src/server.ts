@@ -1,6 +1,6 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { MikroORM } from "@mikro-orm/core";
+import { MikroORM } from "mikro-orm";
 import config from "./mikro-orm.config";
 import { buildSchema } from "type-graphql";
 
