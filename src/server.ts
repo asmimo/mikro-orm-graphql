@@ -4,16 +4,13 @@ import { MikroORM } from "@mikro-orm/core";
 import config from "./mikro-orm.config";
 import { buildSchema } from "type-graphql";
 
-export const DI = {} as {
-  orm: MikroORM;
-};
 // Init Server
 (async () => {
   const app = express();
   const port = process.env.PORT ? Number(process.env.PORT) : 3010;
 
   try {
-    DI.orm = await MikroORM.init(config);
+    const orm = await MikroORM.init(config);
 
     const apolloServer = new ApolloServer({
       schema: await buildSchema({
@@ -21,7 +18,7 @@ export const DI = {} as {
         emitSchemaFile: false,
       }),
       context: ({ req, res }) => {
-        const em = DI.orm.em.fork();
+        const em = orm.em.fork();
         return { req, res, em };
       },
     });
